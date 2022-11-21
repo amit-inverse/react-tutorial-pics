@@ -1,12 +1,30 @@
+import { useState } from 'react';
+
 function SearchBar({ onSubmit }) {
-    const handleClick = () => {
-        onSubmit('cars');
+    const [term, setTerm] = useState('');
+
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
+
+        // console.log('I need to tell the parent about some data');
+
+        onSubmit(
+            // NEVER EVER EVER DO THIS
+            document.querySelector('input').value
+        );
+    };
+
+    const handleChange = (event) => {
+        // console.log(event.target.value);
+
+        setTerm(event.target.value);
     };
 
     return (
         <div>
-            <input />
-            <button onClick={handleClick}>Click me</button>
+            <form onSubmit={handleFormSubmit}>
+                <input value={term} onChange={handleChange} />
+            </form>
         </div>
     );
 }
