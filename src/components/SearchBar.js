@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 function SearchBar({ onSubmit }) {
-    const [term, setTerm] = useState('');
+    const [term, setTerm] = useState('cars');
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -17,13 +17,17 @@ function SearchBar({ onSubmit }) {
     const handleChange = (event) => {
         // console.log(event.target.value);
 
-        setTerm(event.target.value);
+        setTerm(event.target.value.replace(/[a-z]/, ''));
     };
 
     return (
         <div>
             <form onSubmit={handleFormSubmit}>
+                Confirm your search: {term}
+                <br />
                 <input value={term} onChange={handleChange} />
+                <br />
+                {term.length < 3 && 'Term must be longer'}
             </form>
         </div>
     );
